@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   jq \
   less \
   man-db \
+  nano \
   procps \
   unzip \
   ripgrep \
