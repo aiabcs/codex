@@ -4,6 +4,7 @@ ARG TZ
 ENV TZ="$TZ"
 
 # Install basic development tools, ca-certificates, and iptables/ipset, then clean up apt cache to reduce image size
+# also install Python 3 and pip for potential Python-based tasks
 RUN apt-get update && apt-get install -y --no-install-recommends \
   aggregate \
   ca-certificates \
@@ -23,6 +24,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   unzip \
   ripgrep \
   zsh \
+  python3 \
+  python3-pip \
+  python3-venv \
+  python3-setuptools \
+  python3-wheel \  
   && rm -rf /var/lib/apt/lists/*
 
 # Install .NET SDK 8

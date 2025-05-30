@@ -25,6 +25,21 @@ docker inspect ghcr.io/aiabcs/codex:latest
 # Print success message
 echo "Docker image 'codex:latest' built and pushed to ghcr.io/aiabcs/codex:latest successfully."
 
+
+# Login to Azure Container Registry
+#az acr login --name $REGISTRY_NAME
+echo "Logging in to Azure Container Registry..."
+REGISTRY_NAME="crsoftfact001"  # Replace with your Azure Container Registry name
+REGISTRY_SERVER="${REGISTRY_NAME}.azurecr.io"  # Azure Container Registry server URL
+IMAGE_NAME="codex"  # Name of the Docker image
+IMAGE_TAG="latest"  # Tag for the Docker image
+docker login $REGISTRY_SERVER -u $REGISTRY_NAME -p $REGISTRY_PASSWORD
+# Build the Docker image
+docker build -t "${REGISTRY_SERVER}/${IMAGE_NAME}:${IMAGE_TAG}" .
+
+# Push the Docker image to Azure Container Registry
+docker push "${REGISTRY_SERVER}/${IMAGE_NAME}:${IMAGE_TAG}"
+
 # give sample usage
 echo "You can now run the Codex CLI using the following command:"
 
@@ -74,6 +89,9 @@ echo "Remember to set the OPENAI_ALLOWED_DOMAINS environment variable before run
 echo "Example: export OPENAI_ALLOWED_DOMAINS='api.openai.com api.azure.com'"
 
 echo "To run a test, you can use the following command:"
+# for simple .NET 8 MVC app to manage books in a public library
 echo "./scripts/run_in_container.sh --work_dir $next_instance \"write a simple .net 8 mvc app to manage books in a public library\""
+# for a python flask app to manage books in a public library
+echo "./scripts/run_in_container.sh --work_dir $next_instance \"write a simple python flask app to manage books in a public library\""
 
 
