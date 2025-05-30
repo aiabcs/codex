@@ -28,7 +28,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   python3-pip \
   python3-venv \
   python3-setuptools \
-  python3-wheel \  
+  python3-wheel \
+  iputils-ping \
   && rm -rf /var/lib/apt/lists/*
 
 # Install .NET SDK 8
