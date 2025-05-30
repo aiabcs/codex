@@ -25,6 +25,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   zsh \
   && rm -rf /var/lib/apt/lists/*
 
+# Install .NET SDK 8
+RUN curl -sSL https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -o packages-microsoft-prod.deb && \
+  dpkg -i packages-microsoft-prod.deb && \
+  rm packages-microsoft-prod.deb && \
+  apt-get update && \
+  apt-get install -y --no-install-recommends dotnet-sdk-8.0 && \
+  rm -rf /var/lib/apt/lists/*
+
 # Ensure default node user has access to /usr/local/share
 RUN mkdir -p /usr/local/share/npm-global && \
   chown -R node:node /usr/local/share
