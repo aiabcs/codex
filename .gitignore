@@ -1,3 +1,5 @@
+# ignore synced files
+C:\\Users\\Administrator.DEVOPSABCS.000\\.azurelogicapps\\dependencies
 # deps
 # Node.js dependencies
 node_modules

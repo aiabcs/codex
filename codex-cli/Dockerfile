@@ -46,6 +46,9 @@ RUN npm install -g codex.tgz \
   && rm -rf /usr/local/share/npm-global/lib/node_modules/codex-cli/tests \
   && rm -rf /usr/local/share/npm-global/lib/node_modules/codex-cli/docs
 
+# Copy config file
+COPY config/.codex/config.json /home/node/.codex/config.json
+
 # Inside the container we consider the environment already sufficiently locked
 # down, therefore instruct Codex CLI to allow running without sandboxing.
 ENV CODEX_UNSAFE_ALLOW_NO_SANDBOX=1
@@ -55,5 +58,12 @@ USER root
 COPY scripts/init_firewall.sh /usr/local/bin/
 RUN chmod 500 /usr/local/bin/init_firewall.sh
 
+# set permissions
+RUN chown -R node:node /usr/local/share/npm-global
+
 # Drop back to non-root.
 USER node
+
+# set permissions for the Codex binary
+#RUN ls -la /usr/local/share/npm-global/lib/node_modules/@openai/codex/bin
+RUN chmod +x /usr/local/share/npm-global/lib/node_modules/@openai/codex/bin/codex-linux-sandbox-x64
