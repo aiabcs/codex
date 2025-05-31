@@ -43,8 +43,8 @@ export OPENAI_ALLOWED_DOMAINS="$OPENAI_ALLOWED_DOMAINS a542.dscd.akamai.net"
 export OPENAI_ALLOWED_DOMAINS="$OPENAI_ALLOWED_DOMAINS a1430.dscd.akamai.net"
 export OPENAI_ALLOWED_DOMAINS="$OPENAI_ALLOWED_DOMAINS e13287.dscg.akamaiedge.net"
 
-# my organization specific domains
-export OPENAI_ALLOWED_DOMAINS="$OPENAI_ALLOWED_DOMAINS l-0009.l-msedge.net" #aiabcs.visualstudio.com"
+# # my organization specific domains
+# export OPENAI_ALLOWED_DOMAINS="$OPENAI_ALLOWED_DOMAINS l-0009.l-msedge.net" #aiabcs.visualstudio.com"
 
 # # Add Azure and NuGet domains
 # export OPENAI_ALLOWED_DOMAINS="$OPENAI_ALLOWED_DOMAINS azurewebsites.net"
