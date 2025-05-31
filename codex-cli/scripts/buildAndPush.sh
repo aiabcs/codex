@@ -174,7 +174,7 @@ echo "Remember to set the OPENAI_ALLOWED_DOMAINS environment variable before run
 echo "Example: export OPENAI_ALLOWED_DOMAINS='api.openai.com api.azure.com'"
 
 # includes firewall rules for allowed domains for python packages and OpenAI API and Azure OpenAI API and nuget packages
-export OPENAI_ALLOWED_DOMAINS="api4c9f86da943f4670bed2f3d40d8847c382yedt9t163bf3zfpiw1h.eastus2.cloudapp.azure.com api.openai.com pypi.org a2043.dscr.akamai.net apif52012fb91654e8c9f8a14aaecaa8c6f44erawvbyh5bf5t2q3xms.northcentralus.cloudapp.azure.com  a918.dscr.akamai.net waws-prod-ch1-ca8d2570.sip.p.azurewebsites.windows.net waws-prod-ch1-fbae39a0.sip.p.azurewebsites.windows.net waws-prod-ch1-fa793126.sip.p.azurewebsites.windows.net"
+export OPENAI_ALLOWED_DOMAINS="api.github.com github.com api4c9f86da943f4670bed2f3d40d8847c382yedt9t163bf3zfpiw1h.eastus2.cloudapp.azure.com api.openai.com pypi.org a2043.dscr.akamai.net apif52012fb91654e8c9f8a14aaecaa8c6f44erawvbyh5bf5t2q3xms.northcentralus.cloudapp.azure.com  a918.dscr.akamai.net waws-prod-ch1-ca8d2570.sip.p.azurewebsites.windows.net waws-prod-ch1-fbae39a0.sip.p.azurewebsites.windows.net waws-prod-ch1-fa793126.sip.p.azurewebsites.windows.net"
 
 echo "Testing allowed IPs for domains: $OPENAI_ALLOWED_DOMAINS"
 echo ""
@@ -188,6 +188,13 @@ echo "python3 -m venv .venv"
 echo "chmod +x .venv/bin/activate"
 echo ".venv/bin/activate"
 echo ".venv/bin/pip3 install -r requirements.txt"
+echo "export GH_TOKEN=ghp_Ggi******************"
+echo "gh repo list"
+echo "git config --global user.email \"codex@openai.com\""
+echo "git config --global user.name \"Codex\""
+echo "git add *"
+echo "git commit -m \"Initial commit from sandbox\""
+echo "gh repo create emmanuelknafo/$last_instance --push --private --source ."
 
 # for .net small console app with restore and build
 echo ""

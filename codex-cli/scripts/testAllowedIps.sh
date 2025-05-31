@@ -1,6 +1,8 @@
 #!/bin/bash
-next_instance="$HOME/src/codex-tests/test007"
-export OPENAI_ALLOWED_DOMAINS="api4c9f86da943f4670bed2f3d40d8847c382yedt9t163bf3zfpiw1h.eastus2.cloudapp.azure.com api.openai.com pypi.org a2043.dscr.akamai.net apif52012fb91654e8c9f8a14aaecaa8c6f44erawvbyh5bf5t2q3xms.northcentralus.cloudapp.azure.com  a918.dscr.akamai.net waws-prod-ch1-ca8d2570.sip.p.azurewebsites.windows.net waws-prod-ch1-fbae39a0.sip.p.azurewebsites.windows.net waws-prod-ch1-fa793126.sip.p.azurewebsites.windows.net"
+next_instance="$HOME/src/codex-tests/firewalltest001"
+# create the next instance directory
+mkdir -p "$next_instance"
+export OPENAI_ALLOWED_DOMAINS="api.github.com github.com api4c9f86da943f4670bed2f3d40d8847c382yedt9t163bf3zfpiw1h.eastus2.cloudapp.azure.com api.openai.com pypi.org a2043.dscr.akamai.net apif52012fb91654e8c9f8a14aaecaa8c6f44erawvbyh5bf5t2q3xms.northcentralus.cloudapp.azure.com  a918.dscr.akamai.net waws-prod-ch1-ca8d2570.sip.p.azurewebsites.windows.net waws-prod-ch1-fbae39a0.sip.p.azurewebsites.windows.net waws-prod-ch1-fa793126.sip.p.azurewebsites.windows.net"
 
 echo "Testing allowed IPs for domains: $OPENAI_ALLOWED_DOMAINS"
 
@@ -23,5 +25,18 @@ echo "cd MyConsoleApp"
 echo "dotnet add package Microsoft.Extensions.DependencyInjection"
 echo "dotnet restore"
 echo "dotnet build"
+
+# fetch allowed IPs for github.com api by parsing https://api.github.com/meta
+# sample output:
+# Allowed IP: 192.30.252.0/22
+# Allowed IP: 185.199.108.0/22
+# Allowed IP: 140.82.112.0/20
+# Allowed IP: 143.55.64.0/20
+# Allowed IP: 2a0a:a440::/29
+# Allowed IP: 2606:50c0::/32
+echo "Fetching allowed IPs for github.com API..."
+curl -s https://api.github.com/meta | jq -r '.hooks[]' | while read -r ip; do
+    echo "Allowed IP: $ip"
+done
 
 
