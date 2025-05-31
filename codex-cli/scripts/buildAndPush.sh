@@ -24,7 +24,8 @@ pnpm build
 
 # Linux-only: download prebuilt sandboxing binaries (requires gh and zstd).
 # first clean up any previous sandboxing binaries in folder $HOME/src/aiabcs/codex/codex-cli/bin/
-rm -rf $HOME/src/aiabcs/codex/codex-cli/bin
+rm -rf $HOME/src/aiabcs/codex/codex-cli/bin/codex-linux-sandbox-arm64
+rm -rf $HOME/src/aiabcs/codex/codex-cli/bin/codex-linux-sandbox-x64
 ./scripts/install_native_deps.sh
 
 # Get the usage and the options
