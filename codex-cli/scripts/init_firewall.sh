@@ -85,6 +85,12 @@ curl -s https://api.github.com/meta | jq -r '.hooks[]' | while read -r ip; do
     fi
 done
 
+# for azure devops, we can use the following command to fetch allowed IPs
+#ensure that dev.azure.com is open and the 13.107.6.183 and 13.107.9.183 IP addresses are allowed.
+#ipset add allowed-domains "dev.azure.com"
+echo "Adding Azure DevOps IPs to allowed-domains"
+ipset add allowed-domains "13.107.6.183"
+ipset add allowed-domains "13.107.9.183"
 
 # Get host IP from default route
 HOST_IP=$(ip route | grep default | cut -d" " -f3)
