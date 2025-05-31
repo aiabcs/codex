@@ -1,3 +1,43 @@
 # in .bashrc you need a line like export OPENAI_ALLOWED_DOMAINS="api4c9f86da943f4670bed2f3d40d8847c382yedt9t163bf3zfpiw1h.eastus2.cloudapp.azure.com api.openai.com"
+
+# alternatively, call before run container
+export OPENAI_ALLOWED_DOMAINS="api4c9f86da943f4670bed2f3d40d8847c382yedt9t163bf3zfpiw1h.eastus2.cloudapp.azure.com api.openai.com pypi.org a2043.dscr.akamai.net apif52012fb91654e8c9f8a14aaecaa8c6f44erawvbyh5bf5t2q3xms.northcentralus.cloudapp.azure.com  a918.dscr.akamai.net waws-prod-ch1-ca8d2570.sip.p.azurewebsites.windows.net waws-prod-ch1-fbae39a0.sip.p.azurewebsites.windows.net waws-prod-ch1-fa793126.sip.p.azurewebsites.windows.net"
+
+echo "Testing allowed IPs for domains: $OPENAI_ALLOWED_DOMAINS"
+
+Using domains from file: 
+
 api4c9f86da943f4670bed2f3d40d8847c382yedt9t163bf3zfpiw1h.eastus2.cloudapp.azure.com
 api.openai.com
+pypi.org
+a2043.dscr.akamai.net
+apif52012fb91654e8c9f8a14aaecaa8c6f44erawvbyh5bf5t2q3xms.northcentralus.cloudapp.azure.com
+a918.dscr.akamai.net
+waws-prod-ch1-ca8d2570.sip.p.azurewebsites.windows.net
+waws-prod-ch1-fbae39a0.sip.p.azurewebsites.windows.net
+waws-prod-ch1-fa793126.sip.p.azurewebsites.windows.net
+
+Resolving api4c9f86da943f4670bed2f3d40d8847c382yedt9t163bf3zfpiw1h.eastus2.cloudapp.azure.com...
+Adding 20.62.58.5 for api4c9f86da943f4670bed2f3d40d8847c382yedt9t163bf3zfpiw1h.eastus2.cloudapp.azure.com
+Resolving api.openai.com...
+Adding 162.159.140.245 for api.openai.com
+Adding 172.66.0.243 for api.openai.com
+Resolving pypi.org...
+Adding 151.101.128.223 for pypi.org
+Adding 151.101.64.223 for pypi.org
+Adding 151.101.192.223 for pypi.org
+Adding 151.101.0.223 for pypi.org
+Resolving a2043.dscr.akamai.net...
+Adding 184.150.154.122 for a2043.dscr.akamai.net
+Adding 184.150.154.115 for a2043.dscr.akamai.net
+Resolving apif52012fb91654e8c9f8a14aaecaa8c6f44erawvbyh5bf5t2q3xms.northcentralus.cloudapp.azure.com...
+Adding 172.183.192.203 for apif52012fb91654e8c9f8a14aaecaa8c6f44erawvbyh5bf5t2q3xms.northcentralus.cloudapp.azure.com
+Resolving a918.dscr.akamai.net...
+Adding 184.150.154.66 for a918.dscr.akamai.net
+Adding 184.150.154.123 for a918.dscr.akamai.net
+Resolving waws-prod-ch1-ca8d2570.sip.p.azurewebsites.windows.net...
+Adding 20.25.233.61 for waws-prod-ch1-ca8d2570.sip.p.azurewebsites.windows.net
+Resolving waws-prod-ch1-fbae39a0.sip.p.azurewebsites.windows.net...
+Adding 52.159.113.84 for waws-prod-ch1-fbae39a0.sip.p.azurewebsites.windows.net
+Resolving waws-prod-ch1-fa793126.sip.p.azurewebsites.windows.net...
+Adding 20.25.240.152 for waws-prod-ch1-fa793126.sip.p.azurewebsites.windows.net
