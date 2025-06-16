@@ -21,15 +21,15 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-        working-directory: codex/codex-cli
+        working-directory: codex-cli
 
       - name: Build project
         run: pnpm build
-        working-directory: codex/codex-cli
+        working-directory: codex-cli
 
       - name: Install Linux native deps (Linux only)
         run: ./scripts/install_native_deps.sh
-        working-directory: codex/codex-cli
+        working-directory: codex-cli
 
       - name: Stage release
         run: |
@@ -38,11 +38,11 @@ jobs:
           else
             pnpm stage-release
           fi
-        working-directory: codex/codex-cli
+        working-directory: codex-cli
 
       - name: Publish to npm
         run: |
-          RELEASE_DIR=$(ls -td codex/codex-cli/release-* | head -1)
+          RELEASE_DIR=$(ls -td codex-cli/release-* | head -1)
           cd "$RELEASE_DIR"
           npm publish
         env:
