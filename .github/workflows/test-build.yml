@@ -58,7 +58,9 @@ jobs:
         run: ls -la ./dist
         working-directory: codex-cli
       # publish artifact
-      - name: Upload codex.tgz artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: codex.tgz
+      # publish artifact  
+      - name: Upload codex.tgz artifact  
+        uses: actions/upload-artifact@v4  
+        with:  
+          name: codex.tgz  
+          path: ./codex-cli/dist/codex.tgz
