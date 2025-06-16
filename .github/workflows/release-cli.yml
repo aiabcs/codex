@@ -1,14 +1,29 @@
-name: Publish Codex CLI Build
+#name: Publish Codex CLI Build and Release Artifact
+# Release workflow for codex-rs.
+# To release, follow a workflow like:
+# ```
+# git tag -a v0.0.8 -m "Release 0.0.8"
+# git push origin v0.0.8
+# ```
 
+name: codex-release
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - "v*.*.*"
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+#on:
+#  workflow_dispatch:
 #   push:
 #     branches: [ main, develop ]
 #   pull_request:
 #     branches: [ main ]
 
 jobs:
-  test-build:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -64,3 +79,34 @@ jobs:
         with:  
           name: codex.tgz  
           path: ./codex-cli/dist/codex.tgz
+  release:
+    needs: build
+    name: release
+    runs-on: ubuntu-24.04
+    env:
+      RELEASE_TAG: codex-${{ github.sha }}-${{ github.run_attempt }}-${{ github.ref_name }}
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: List
+        run: ls -R dist/
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          files: dist/**
+          # For now, tag releases as "prerelease" because we are not claiming
+          # the Rust CLI is stable yet.
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}  # Use the PAT here instead of GITHUB_TOKEN
+
+      - uses: facebook/dotslash-publish-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}  # Use the PAT here too
+        with:
+          tag: ${{ env.RELEASE_TAG }}
+          config: .github/dotslash-config.json
