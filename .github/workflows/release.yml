@@ -30,6 +30,8 @@ jobs:
       - name: Install Linux native deps (Linux only)
         run: ./scripts/install_native_deps.sh
         working-directory: codex-cli
+        env:
+            GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Stage release
         run: |
