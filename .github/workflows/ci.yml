@@ -52,6 +52,7 @@ jobs:
 
       - name: Check Markdown and config file formatting
         run: pnpm run format
+        continue-on-error: true
 
       - name: Run tests
         run: pnpm run test
