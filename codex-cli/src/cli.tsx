@@ -112,7 +112,7 @@ const cli = meow(
                                into context and applies a batch of edits in one go. Incompatible
                                with all other flags, except for --model.
 
-  Examples - (Emmanuel version 0.0.11)
+  Examples - (Emmanuel version 0.0.12)
     $ codex "Write and run a python program that prints ASCII art"
     $ codex -q "fix build issues"
     $ codex completion bash
