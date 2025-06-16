@@ -2,8 +2,8 @@
 # Release workflow for codex-rs.
 # To release, follow a workflow like:
 # ```
-# git tag -a v0.0.8 -m "Release 0.0.8"
-# git push origin v0.0.8
+# git tag -a v0.0.9 -m "Release 0.0.9"
+# git push origin v0.0.9
 # ```
 
 name: codex-release
@@ -104,9 +104,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}  # Use the PAT here instead of GITHUB_TOKEN
 
-      - uses: facebook/dotslash-publish-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}  # Use the PAT here too
+      # - uses: facebook/dotslash-publish-release@v2
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}  # Use the PAT here too
+      #   with:
+      #     tag: ${{ env.RELEASE_TAG }}
+      #     config: .github/dotslash-config.json
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
         with:
-          tag: ${{ env.RELEASE_TAG }}
-          config: .github/dotslash-config.json
+          tag_name: ${{ env.RELEASE_TAG }}
+          files: dist/**
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}
