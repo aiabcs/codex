@@ -174,10 +174,12 @@ jobs:
           # For now, tag releases as "prerelease" because we are not claiming
           # the Rust CLI is stable yet.
           prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}  # Use the PAT here instead of GITHUB_TOKEN
 
       - uses: facebook/dotslash-publish-release@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}  # Use the PAT here too
         with:
           tag: ${{ env.RELEASE_TAG }}
           config: .github/dotslash-config.json

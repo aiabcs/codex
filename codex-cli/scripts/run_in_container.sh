@@ -59,6 +59,7 @@ cleanup
 # Run the container with the specified directory mounted at the same path inside the container.
 docker run --name "$CONTAINER_NAME" -d \
   -e OPENAI_API_KEY \
+  -e AZURE_OPENAI_API_KEY \
   --cap-add=NET_ADMIN \
   --cap-add=NET_RAW \
   -v "$WORK_DIR:/app$WORK_DIR" \

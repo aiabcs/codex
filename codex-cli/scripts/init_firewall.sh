@@ -62,6 +62,36 @@ for domain in "${ALLOWED_DOMAINS[@]}"; do
     done < <(echo "$ips")
 done
 
+# fetch allowed IPs for github.com api by parsing https://api.github.com/meta
+# sample output:
+# Allowed IP: 192.30.252.0/22
+# Allowed IP: 185.199.108.0/22
+# Allowed IP: 140.82.112.0/20
+# Allowed IP: 143.55.64.0/20
+# Allowed IP: 2a0a:a440::/29
+# Allowed IP: 2606:50c0::/32
+echo "Fetching allowed IPs for github.com API..."
+curl -s https://api.github.com/meta | jq -r '.hooks[]' | while read -r ip; do
+    echo "Allowed IP: $ip"
+    # Handle CIDR notation
+    if [[ "$ip" =~ /[0-9]+$ ]]; then
+        # If it's already in CIDR format, add directly
+        echo "Adding CIDR $ip to allowed-domains"
+        ipset add allowed-domains "$ip" || true
+    else
+        # If it's a single IP, convert to CIDR
+        echo "Converting single IP $ip to CIDR and adding to allowed-domains"
+        ipset add allowed-domains "$ip/32" || true
+    fi
+done
+
+# for azure devops, we can use the following command to fetch allowed IPs
+#ensure that dev.azure.com is open and the 13.107.6.183 and 13.107.9.183 IP addresses are allowed.
+#ipset add allowed-domains "dev.azure.com"
+echo "Adding Azure DevOps IPs to allowed-domains"
+ipset add allowed-domains "13.107.6.183"
+ipset add allowed-domains "13.107.9.183"
+
 # Get host IP from default route
 HOST_IP=$(ip route | grep default | cut -d" " -f3)
 if [ -z "$HOST_IP" ]; then

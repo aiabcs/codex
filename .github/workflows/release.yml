@@ -1,0 +1,56 @@
+name: Release codex-cli
+
+on:
+  workflow_dispatch:
+    inputs:
+      native:
+        description: 'Build native (fat) package with Rust CLI binaries?'
+        required: false
+        default: 'false'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+            node-version: 22
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install
+        working-directory: codex-cli
+
+      - name: Build project
+        run: pnpm build
+        working-directory: codex-cli
+
+      - name: Install Linux native deps (Linux only)
+        run: ./scripts/install_native_deps.sh
+        working-directory: codex-cli
+        env:
+            GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Stage release
+        run: |
+          if [[ "${{ github.event.inputs.native }}" == "true" ]]; then
+            pnpm stage-release --native
+          else
+            pnpm stage-release
+          fi
+        working-directory: codex-cli
+        env:
+            GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Publish to npm
+        run: |
+          RELEASE_DIR=$(ls -td codex-cli/release-* | head -1)
+          cd "$RELEASE_DIR"
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
