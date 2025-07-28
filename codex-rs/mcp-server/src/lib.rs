@@ -13,6 +13,7 @@ use tokio::sync::mpsc;
 use tracing::debug;
 use tracing::error;
 use tracing::info;
+use tracing_subscriber::EnvFilter;
 
 mod codex_tool_config;
 mod codex_tool_runner;
@@ -27,6 +28,7 @@ use crate::outgoing_message::OutgoingMessage;
 use crate::outgoing_message::OutgoingMessageSender;
 
 pub use crate::codex_tool_config::CodexToolCallParam;
+pub use crate::codex_tool_config::CodexToolCallReplyParam;
 pub use crate::exec_approval::ExecApprovalElicitRequestParams;
 pub use crate::exec_approval::ExecApprovalResponse;
 pub use crate::patch_approval::PatchApprovalElicitRequestParams;
@@ -42,6 +44,7 @@ pub async fn run_main(codex_linux_sandbox_exe: Option<PathBuf>) -> IoResult<()> 
     // control the log level with `RUST_LOG`.
     tracing_subscriber::fmt()
         .with_writer(std::io::stderr)
+        .with_env_filter(EnvFilter::from_default_env())
         .init();
 
     // Set up channels.
@@ -81,7 +84,7 @@ pub async fn run_main(codex_linux_sandbox_exe: Option<PathBuf>) -> IoResult<()> 
                 match msg {
                     JSONRPCMessage::Request(r) => processor.process_request(r).await,
                     JSONRPCMessage::Response(r) => processor.process_response(r).await,
-                    JSONRPCMessage::Notification(n) => processor.process_notification(n),
+                    JSONRPCMessage::Notification(n) => processor.process_notification(n).await,
                     JSONRPCMessage::Error(e) => processor.process_error(e),
                 }
             }
