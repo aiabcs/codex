@@ -1,6 +1,6 @@
 {
   "name": "@openai/codex",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "license": "Apache-2.0",
   "bin": {
     "codex": "bin/codex.js"
